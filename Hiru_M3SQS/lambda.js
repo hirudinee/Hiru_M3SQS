@@ -1,4 +1,5 @@
 let AWS = require('aws-sdk');
+const ddb = new AWS.DynamoDB.DocumentClient();
 let SL = require('@slappforge/slappforge-sdk');
 const sqs = new SL.AWS.SQS(AWS);
 exports.handler = function (event, context, callback) {
@@ -20,6 +21,17 @@ exports.handler = function (event, context, callback) {
 		// your logic (logging etc) to handle successful message delivery, should be here
 	}, function (error) {
 		// your logic (logging etc) to handle failures, should be here
+	});
+
+	ddb.get({
+		TableName: 'ThuvvaTable',
+		Key: { 'ID': 'id' }
+	}, function (err, data) {
+		if (err) {
+			//handle error
+		} else {
+			//your logic goes here
+		}
 	});
 
 
